@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title>
+            My Map
+        </title>
+        <!--Leaflet-->
+        <link rel="stylesheet" href=".../lib/Leaflet/leaflet.css" />
+        <script src=".../Schule/Exposure/UNESCO/Leaflet/my_map/lib/Leaflet/leaflet.js"> </script>
+        <script src=".../Schule/Exposure/UNESCO/Leaflet/my_map/datadata/All_Countries.geojson"></script>
+        <style type="text/css">
+            #map { height: 400px; }
+        </style>
+    </head>
+    <body>
+        <h1>My Map</h1>
+        <div id="map"></div>
+
+        <script>
+
+function getcountrycolor(popest){
+                if (soil1_desc == 'ferralic Arenosols'){return'rgba(165,169,82,1.0)'}
+                else if(soil1_desc =='haplic Calcisols'){return 'rgba(244,224,134,1.0)'}
+                else if(soil1_desc =='mollic Leptosols'){return 'rgba(155,102,32,1.0)'}
+                else if(soil1_desc =='sodic Cambisols'){return 'rgba(197,234,158,1.0)'}
+                else {return 'rgba(69,29,217,1.0)'}
+            }
+
+
+            function getCountryColor(popEst){
+                if(popEst > 100000000){
+                    return 'red';
+                }else if(popest > 50000000){
+                    return 'blue';
+                }else{
+                    return 'green';
+                }
+            }
+
+            function countriesStyle(feature){
+                return {
+                    fillColor : getCountryColor(feature.properties.POP_EST),
+                    weight : 2,
+                    opacity: 1,
+                    color : 'white',
+                    dashArray : 3,
+                    fillOpacity : 0.7
+                }
+            }
+            var map = L.map('map').setView([-22.2929, 17.2929], 5);            
+            var countriesLayer = L.geoJson(
+                countries,
+                {style: countriesStyle}
+                ).addTo(map);
+            ///map.fitBounds(countriesLayer.getBounds());
+        </script>
+    </body>
+</html>
